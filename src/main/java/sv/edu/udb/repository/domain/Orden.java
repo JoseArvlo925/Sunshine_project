@@ -3,6 +3,7 @@ package sv.edu.udb.repository.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import sv.edu.udb.repository.domain.Cliente;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -19,7 +20,7 @@ public class Orden {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_cli", nullable = false)
-    private sv.edu.udb.Cliente idCli;
+    private Cliente idCli;
 
     @Column(name = "fecha_ped")
     private Instant fechaPed;

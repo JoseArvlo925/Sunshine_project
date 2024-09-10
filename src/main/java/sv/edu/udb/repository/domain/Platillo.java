@@ -3,6 +3,7 @@ package sv.edu.udb.repository.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import sv.edu.udb.repository.domain.Menu;
 
 import java.math.BigDecimal;
 
@@ -27,6 +28,6 @@ public class Platillo {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_tipo", nullable = false)
-    private sv.edu.udb.Menu idTipo;
+    private Menu idTipo;
 
 }

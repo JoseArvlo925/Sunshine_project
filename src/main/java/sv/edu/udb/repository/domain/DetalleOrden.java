@@ -22,4 +22,12 @@ public class DetalleOrden {
     @Column(name = "cantidad")
     private Integer cantidad;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_orden", nullable = false)
+    private Orden idOrden;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_plat", nullable = false)
+    private Platillo idPlat;
+
 }
