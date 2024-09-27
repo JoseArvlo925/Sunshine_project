@@ -1,16 +1,21 @@
 package sv.edu.udb.repository.domain;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import sv.edu.udb.repository.domain.Menu;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "platillo")
+@NamedQueries({
+        @NamedQuery(name = "Platillo.findAll", query = "SELECT p FROM Platillo p"),
+        @NamedQuery(name = "Platillo.findById", query = "SELECT p FROM Platillo p WHERE p.id = :id")
+})
 public class Platillo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

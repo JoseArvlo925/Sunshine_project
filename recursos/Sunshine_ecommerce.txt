@@ -1,0 +1,75 @@
+Create database sunshine_ecommerce;
+use sunshine_ecommerce;
+
+create table menu(
+	id_tipo int(11) not null,
+	tipo varchar(50),
+	primary key (id_tipo)
+)ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT
+CHARSET=latin1;
+
+create table platillo(
+	id_plat int(11) not null auto_increment,
+	nombre varchar(50) not null,
+	precio decimal(8,2) not null,
+	imagen varchar(200),
+	id_tipo int(11) not null,
+	primary key (id_plat),
+	key id_tipo (id_tipo)
+)ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT
+CHARSET=latin1;
+
+create table cliente(
+    id_cli int(11) not null AUTO_INCREMENT,
+    nombres varchar(200) not null,
+    apellidos varchar(200) not null,
+    telefono varchar(50),
+    correo varchar(100) not null,
+    contrasenia varchar(50) not null,
+    PRIMARY KEY (id_cli)
+)ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT
+CHARSET=latin1;
+
+create table orden(
+    id_orden int(11) not null AUTO_INCREMENT,
+    id_cli int(11) not null,
+    fecha_ped datetime,
+    total decimal(8,2),
+    estado varchar(25),
+    PRIMARY KEY (id_orden),
+    key id_cli (id_cli)
+)ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT
+CHARSET=latin1;
+
+create table detalle_orden(
+    id_det int(11) not null AUTO_INCREMENT,
+    id_orden int(11) not null,
+    id_plat int(11) not null,
+    precio decimal(8,2),
+    cantidad int,
+    PRIMARY key (id_det),
+    key id_orden (id_orden),
+    key id_plat (id_plat)
+)ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT
+CHARSET=latin1;
+
+/*Creacion de llaves foráneas*/
+alter table platillo
+add CONSTRAINT platillo_ibfk_1
+FOREIGN KEY (id_tipo)
+REFERENCES menu (id_tipo);
+
+alter table orden
+add CONSTRAINT orden_ibfk_1
+FOREIGN KEY (id_cli)
+REFERENCES cliente (id_cli);
+
+alter table detalle_orden
+add CONSTRAINT detorden_ibfk_1
+FOREIGN KEY (id_orden)
+REFERENCES orden (id_orden);
+
+alter table detalle_orden
+add CONSTRAINT platillo_ibfk_2
+FOREIGN KEY (id_plat)
+REFERENCES platillo (id_plat);

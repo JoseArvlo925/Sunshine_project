@@ -1,14 +1,20 @@
 package sv.edu.udb.repository.domain;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "DetalleOrden.listByOrden",
+                query = "SELECT p.imagen, p.nombre, d.precio, d.cantidad FROM DetalleOrden d INNER JOIN d.idPlat p WHERE d.idOrden = :idOrden")
+})
 @Table(name = "detalle_orden")
 public class DetalleOrden {
     @Id

@@ -1,16 +1,24 @@
 package sv.edu.udb.repository.domain;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+@Entity
+@Table(name = "cliente", schema = "sunshine_ecommerce")
 @Getter
 @Setter
-@Entity
-@Table(name = "cliente")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@NamedQueries({
+        @NamedQuery(name = "Cliente.findByID", query = "SELECT c FROM Cliente c WHERE c.id = :id"),
+        @NamedQuery(name = "Cliente.Auth", query = "SELECT c FROM Cliente c WHERE c.correo = :correo AND c.contrasenia = :contrasenia"),
+        @NamedQuery(name = "Cliente.findAll", query = "SELECT c FROM Cliente c"),
+        @NamedQuery(name = "Cliente.countEmail", query = "SELECT COUNT(c) FROM Cliente c where correo = :correo")
+})
 public class Cliente {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //->Indica que el atributo se genera
     @Column(name = "id_cli", nullable = false)
     private Integer id;
 
