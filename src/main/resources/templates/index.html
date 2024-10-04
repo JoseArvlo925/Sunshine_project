@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sunshine Restaurant</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body>
+
+<div class="container-fluid mt-2">
+    <h5>Menu de platillos</h5>
+    <hr/>
+    <div class="row">
+            <div class="col-sm-3 mt-1" th:each="platillo : ${platillos}">
+                <form th:action="@{/carrito/agregar/{id}(id=${platillo.getId()})}" th:object="${platillo}" method="GET">
+                    <div class="card">
+                        <img th:src="${platillo.getImagen()}"
+                             th:alt="${platillo.getNombre()}"/>
+                        <div class="card-body">
+                            <p class="font-bold" th:text="${platillo.getNombre()}">Nombre</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <button class="btn btn-sm btn-primary" type="submit">
+                                    <i class="fa fa-shopping-cart"></i>Agregar al carrito
+                                </button>
+                                <small class="fw-bold" th:text="${platillo.getPrecio()}">Precio</small>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+    </div>
+</div>
+
+</body>
+</html>

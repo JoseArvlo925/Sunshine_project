@@ -16,7 +16,7 @@ public class OrdenRepository {
     private EntityManager entityManager;
 
     public List<Orden> findByCustomer(final Cliente cliente){
-        return entityManager.createNamedQuery("Orden.findByCustomer").setParameter("id_cli", cliente).getResultList();
+        return entityManager.createNamedQuery("Orden.findByCustomer", Orden.class).setParameter("id_cli", cliente).getResultList();
     }
 
     public int saveOrden(final Orden orden){

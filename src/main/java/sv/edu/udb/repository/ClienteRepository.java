@@ -15,7 +15,7 @@ public class ClienteRepository {
     private EntityManager entityManager;
 
     public List<Cliente> findAll(){
-        return entityManager.createNamedQuery("Cliente.findAll").getResultList();
+        return entityManager.createNamedQuery("Cliente.findAll", Cliente.class).getResultList();
     }
 
     public Cliente findById(int id){

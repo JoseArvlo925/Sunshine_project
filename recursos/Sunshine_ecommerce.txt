@@ -5,8 +5,7 @@ create table menu(
 	id_tipo int(11) not null,
 	tipo varchar(50),
 	primary key (id_tipo)
-)ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT
-CHARSET=latin1;
+)ENGINE=InnoDB CHARSET=latin1;
 
 create table platillo(
 	id_plat int(11) not null auto_increment,
@@ -16,8 +15,7 @@ create table platillo(
 	id_tipo int(11) not null,
 	primary key (id_plat),
 	key id_tipo (id_tipo)
-)ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT
-CHARSET=latin1;
+)ENGINE=InnoDB CHARSET=latin1;
 
 create table cliente(
     id_cli int(11) not null AUTO_INCREMENT,
@@ -27,8 +25,7 @@ create table cliente(
     correo varchar(100) not null,
     contrasenia varchar(50) not null,
     PRIMARY KEY (id_cli)
-)ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT
-CHARSET=latin1;
+)ENGINE=InnoDB CHARSET=latin1;
 
 create table orden(
     id_orden int(11) not null AUTO_INCREMENT,
@@ -38,8 +35,7 @@ create table orden(
     estado varchar(25),
     PRIMARY KEY (id_orden),
     key id_cli (id_cli)
-)ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT
-CHARSET=latin1;
+)ENGINE=InnoDB CHARSET=latin1;
 
 create table detalle_orden(
     id_det int(11) not null AUTO_INCREMENT,
@@ -50,8 +46,7 @@ create table detalle_orden(
     PRIMARY key (id_det),
     key id_orden (id_orden),
     key id_plat (id_plat)
-)ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT
-CHARSET=latin1;
+)ENGINE=InnoDB CHARSET=latin1;
 
 /*Creacion de llaves foráneas*/
 alter table platillo
@@ -73,3 +68,10 @@ alter table detalle_orden
 add CONSTRAINT platillo_ibfk_2
 FOREIGN KEY (id_plat)
 REFERENCES platillo (id_plat);
+
+/*Inserción de registros*/
+INSERT INTO menu VALUES (1, 'Desayuno'), (2, 'Almuerzo'), (3, 'Cena');
+
+INSERT INTO platillo (nombre, precio, imagen, id_tipo) VALUES ('Pupusas',3.50,'/img/Plat001.jpg',1), ('Yuca frita',3.50,'/img/Plat002.jpg',1), ('Atol de elote',1.50,'/img/Plat003.jpg',1);
+INSERT INTO platillo (nombre, precio, imagen, id_tipo) VALUES ('Sopa de gallina',6.00,'/img/Plat004.jpg',2), ('Tamales',2.50,'/img/Plat005.jpg',2), ('Panes con gallina',2.00,'/img/Plat006.jpg',2);
+INSERT INTO platillo (nombre, precio, imagen, id_tipo) VALUES ('Pastelitos',1.50,'/img/Plat007.jpg',3), ('Enchiladas',1.50,'/img/Plat008.jpg',3), ('Empanadas de platano',1.00,'/img/Plat009.jpg',3);

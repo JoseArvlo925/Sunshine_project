@@ -36,4 +36,11 @@ public class DetalleOrden {
     @JoinColumn(name = "id_plat", nullable = false)
     private Platillo idPlat;
 
+    public void aumentarCantidad(int cantidad){
+        this.cantidad += cantidad;
+    }
+
+    public Double importe(){
+        return precio.doubleValue() * cantidad.doubleValue();
+    }
 }

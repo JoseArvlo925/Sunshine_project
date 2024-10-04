@@ -15,7 +15,7 @@ public class PlatilloRepository {
     private EntityManager entityManager;
 
     public List<Platillo> findAll(){
-        return entityManager.createNamedQuery("Platillo.findAll").getResultList();
+        return entityManager.createNamedQuery("Platillo.findAll", Platillo.class).getResultList();
     }
 
     public Platillo findById(int id){
