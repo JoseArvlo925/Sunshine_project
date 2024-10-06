@@ -15,4 +15,8 @@ public class PlatilloService {
     public List<Platillo> findAll(){
         return repository.findAll();
     }
+
+    public Platillo findById(Integer id){
+        return repository.findById(id);
+    }
 }

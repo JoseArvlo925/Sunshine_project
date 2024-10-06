@@ -1,11 +1,13 @@
 package sv.edu.udb.util;
 
+import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 import sv.edu.udb.repository.domain.DetalleOrden;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class Carrito {
     public void agregarCarrito(DetalleOrden detalle, Model model){
         List<DetalleOrden> carrito = obtenerSesion(model);
