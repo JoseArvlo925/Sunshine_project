@@ -1,6 +1,6 @@
 <div th:fragment="navbar">
 <nav class="navbar navbar-expand-lg" style="background-color: skyblue">
-  <a class="navbar-brand" href="#">
+  <a class="navbar-brand" th:href="@{/}">
     <img th:src="@{/images/recursos/logo.png}" alt="logo" style="width: 100px; height: 50px;"/>
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,31 +16,55 @@
         <a class="nav-link text-white" th:href="@{/carrito/listar}"><i class="fas fa-shopping-cart"></i>
           (<span class="fw-bold" th:text="${carrito != null ? carrito.size() : 0}">size</span> )Carrito</a>
       </li>
-        <li class="nav-item" th:if="${usuario != null}">
-          <a class="nav-link text-white" th:href="@{/pedidos/mispedidos}">
-            <i class="fa fa-receipt"></i> Mis pedidos
-          </a>
-        </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
-        <div th:if="${usuario == null}">
-            <a th:href="@{/cliente/nuevo}" class="btn btn-dark">
+        <div>
+            <a th:href="@{/usuario/nuevo}" class="btn btn-dark">
               <i class="fas fa-user-plus"></i>Registrarse
             </a>
             &nbsp;
-            <a th:href="@{/auth/login}" class="btn btn-dark">
+            <a th:href="@{/login}" class="btn btn-dark">
               <i class="fas fa-user-lock"></i>Login
-            </a>
-        </div>
-
-        <div th:if="${usuario != null}">
-            <span class="btn btn-light" th:text="${usuario.getNombre()}">usuario</span>
-            &nbsp;
-            <a th:href="@{/auth/logout}" class="btn btn-dark">
-              <i class="fa fa-sign-out-alt">Cerrar Sesion</i>
             </a>
         </div>
     </form>
   </div>
 </nav>
+</div>
+
+<div th:fragment="navbar-user">
+    <nav class="navbar navbar-expand-lg" style="background-color: skyblue">
+        <a class="navbar-brand" th:href="@{/}">
+            <img th:src="@{/images/recursos/logo.png}" alt="logo" style="width: 100px; height: 50px;"/>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-white" th:href="@{/}"><i class="fas fa-home"></i>Menu <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" th:href="@{/carrito/listar}"><i class="fas fa-shopping-cart"></i>
+                        (<span class="fw-bold" th:text="${carrito != null ? carrito.size() : 0}">size</span> )Carrito</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" th:href="@{/pedidos/mispedidos}">
+                        <i class="fa fa-receipt"></i> Mis pedidos
+                    </a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <div>
+                    <span class="btn btn-light">USER</span>
+                    &nbsp;
+                    <a th:href="@{/usuario/logout}" class="btn btn-dark">
+                        <i class="fa fa-sign-out-alt">Cerrar Sesion</i>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </nav>
 </div>

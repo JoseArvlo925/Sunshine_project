@@ -27,10 +27,14 @@ public class ClienteRepository {
     }
 
     public Cliente auth(String correo, String contrasenia){
-        return (Cliente) entityManager.createNamedQuery("Cliente.Auth")
-                .setParameter("correo", correo)
-                .setParameter("contrasenia", contrasenia)
-                .getSingleResult();
+        try {
+            return (Cliente) entityManager.createNamedQuery("Cliente.Auth")
+                    .setParameter("correo", correo)
+                    .setParameter("contrasenia", contrasenia)
+                    .getSingleResult();
+        }catch (Exception ex){
+            return null;
+        }
     }
 
     public int saveCliente(final Cliente cliente){
