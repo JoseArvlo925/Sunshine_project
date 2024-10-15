@@ -13,13 +13,13 @@
         <a class="nav-link text-white" th:href="@{/}"><i class="fas fa-home"></i>Menu <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-white" th:href="@{/carrito/listar}"><i class="fas fa-shopping-cart"></i>
+        <a class="nav-link text-white" th:href="@{/carrito}"><i class="fas fa-shopping-cart"></i>
           (<span class="fw-bold" th:text="${carrito != null ? carrito.size() : 0}">size</span> )Carrito</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
         <div>
-            <a th:href="@{/usuario/nuevo}" class="btn btn-dark">
+            <a th:href="@{/nuevo}" class="btn btn-dark">
               <i class="fas fa-user-plus"></i>Registrarse
             </a>
             &nbsp;
@@ -47,11 +47,11 @@
                     <a class="nav-link text-white" th:href="@{/}"><i class="fas fa-home"></i>Menu <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" th:href="@{/carrito/listar}"><i class="fas fa-shopping-cart"></i>
+                    <a class="nav-link text-white" th:href="@{/carrito}"><i class="fas fa-shopping-cart"></i>
                         (<span class="fw-bold" th:text="${carrito != null ? carrito.size() : 0}">size</span> )Carrito</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" th:href="@{/pedidos/mispedidos}">
+                    <a class="nav-link text-white" th:href="@{/mispedidos}">
                         <i class="fa fa-receipt"></i> Mis pedidos
                     </a>
                 </li>

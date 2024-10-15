@@ -36,6 +36,6 @@ public class Orden {
     @Column(name = "estado", length = 25)
     private String estado;
 
-    @OneToMany(mappedBy = "idOrden", cascade = CascadeType.ALL) //->Se mapea con el nombre del atributo en la clase, NO el nombre de la tabla
+    @OneToMany(mappedBy = "idOrden") //->Se mapea con el nombre del atributo en la clase, NO el nombre de la tabla
     private List<DetalleOrden> detalleList;
 }

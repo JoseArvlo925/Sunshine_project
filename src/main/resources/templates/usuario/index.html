@@ -8,8 +8,11 @@
     <link rel="stylesheet" th:href="@{/css/carousel.css}">
 </head>
 <body>
+<!--Navegacion-->
 <div th:if="${cliente == null}" th:insert="~{usuario/navbar.html :: navbar}"></div>
 <div th:unless="${cliente == null}" th:insert="~{usuario/navbar.html :: navbar-user}"></div>
+<!--Mensaje-->
+<div th:if="${mensaje != null}" th:insert="~{usuario/mensaje.html :: mensaje}"></div>
 
 <!--Prueba-->
 <div class="introSection">
@@ -96,6 +99,7 @@
     </div>
 </div>
 
+<!--JavaScript-->
 <script th:src="@{https://code.jquery.com/jquery-3.3.1.slim.min.js}"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script th:src="@{https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js}"

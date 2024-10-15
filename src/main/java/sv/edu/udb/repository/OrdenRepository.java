@@ -2,6 +2,7 @@ package sv.edu.udb.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 import sv.edu.udb.repository.domain.Cliente;
@@ -22,6 +23,13 @@ public class OrdenRepository {
     public int saveOrden(final Orden orden){
         entityManager.persist(orden);
         return 1;
+    }
+
+    public Orden findLastOrder(){
+        TypedQuery<Orden> query = entityManager.createQuery(
+                "Select o FROM Orden o ORDER BY o.id DESC", Orden.class);
+        query.setMaxResults(1);
+        return query.getSingleResult();
     }
 
     /*Con este metodo se hace una referencia a la llave foránea*/

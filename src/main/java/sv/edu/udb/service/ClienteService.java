@@ -21,4 +21,8 @@ public class ClienteService {
     public Long emailExists(String correo){
         return clienteRepository.emailExists(correo);
     }
+
+    public Cliente findById(int id){
+        return clienteRepository.findById(id);
+    }
 }

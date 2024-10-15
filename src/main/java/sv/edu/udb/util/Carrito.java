@@ -23,20 +23,6 @@ public class Carrito {
         guardarSesion(model, carrito);
     }
 
-    public double importeTotal(List<DetalleOrden> carrito){
-        double total = 0;
-        for(DetalleOrden item : carrito){
-            total += item.importe();
-        }
-        return total;
-    }
-
-    public void removerItemCarrito(Model model, int indice){
-        List<DetalleOrden> carrito = obtenerSesion(model);
-        carrito.remove(indice);
-        guardarSesion(model, carrito);
-    }
-
     public List<DetalleOrden> obtenerSesion(Model model){
         List<DetalleOrden> carrito;
 

@@ -26,9 +26,11 @@ public class DetalleOrdenRepository {
         return entityManager.createNamedQuery("DetalleOrden.listByOrden").setParameter("idOrden", orden).getResultList();
     }
 
-    public int saveDetalle(final DetalleOrden detalleOrden){
-        entityManager.persist(detalleOrden);
-        return 1;
+    public void saveDetalle(final List<DetalleOrden> detalles, Orden orden){
+        for(DetalleOrden detalle : detalles) {
+            detalle.setIdOrden(orden);
+            entityManager.persist(detalle);
+        }
     }
 
     public Orden orderKey(final int key){
