@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Sunshine Restaurant</title>
+  <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css}" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css}" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" th:href="@{/css/carousel.css}">
+</head>
+<body>
+<!--Navegación-->
+<div th:if="${cliente == null}" th:insert="~{usuario/navbar.html :: navbar}"></div>
+<div th:unless="${cliente == null}" th:insert="~{usuario/navbar.html :: navbar-user}"></div>
+<!--Mensaje-->
+<div th:if="${mensaje != null}" th:insert="~{usuario/mensaje.html :: mensaje}"></div>
+
+<!--Contenido-->
+<div class="container-fluid mt-2">
+  <h5>Mis Pedidos</h5>
+  <hr/>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+              <tr>
+                <th># Pedido</th>
+                <th>Fecha</th>
+                <th>Total</th>
+                <th>Estado</th>
+                <th>Detalle</th>
+              </tr>
+              </thead>
+              <tbody>
+              <!--Inicio ordenes-->
+                <tr th:each="orden : ${ordenes}">
+                  <td th:text="${orden.getId()}"></td>
+                  <td th:text="${orden.getFechaPed()}"></td>
+                  <td th:text="${orden.getTotal()}"></td>
+                  <td th:text="${orden.getEstado()}"></td>
+                  <td>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" th:data-target="'#modalDetalle_' + ${orden.id}">
+                      Ver
+                    </button>
+
+                    <!-- Modal -->
+                    <!-- Modal -->
+                    <div class="modal fade" th:id="'modalDetalle_' + ${orden.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel" th:text="'Pedido #' +${orden.getId()}">Pedido #${item.getIdPedido()}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="container-fluid">
+                              <!-- Asegura que la tabla sea responsiva y ocupe todo el ancho -->
+                              <div class="table-responsive">
+                                <table class="table table-bordered table-hover w-100">
+                                  <thead class="thead-light">
+                                  <tr>
+                                    <th>Imagen</th>
+                                    <th>Producto</th>
+                                    <th>Precio</th>
+                                    <th>Cantidad</th>
+                                    <th>Importe</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody>
+                                  <!-- Inicio detalles -->
+                                  <tr th:each="detalle : ${orden.getDetalleList()}">
+                                    <td><img th:src="@{/images/{id} (id = ${detalle.idPlat.imagen})}" width="50" height="60"/></td>
+                                    <td th:text="${detalle.idPlat.nombre}">${detalle.getProducto().getNombre()}</td>
+                                    <td th:text="${detalle.idPlat.precio}">${detalle.getProducto().getPrecio()}</td>
+                                    <td th:text="${detalle.cantidad}">${detalle.getCantidad()}</td>
+                                    <td th:text="${detalle.precio * detalle.cantidad}">${detalle.importe()}</td>
+                                  </tr>
+                                  <!-- Fin detalles -->
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!--Fin modal-->
+                  </td>
+                </tr>
+              <!--Fin ordenes-->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--JavaScript-->
+<script th:src="@{https://code.jquery.com/jquery-3.3.1.slim.min.js}"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script th:src="@{https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js}"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js}"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

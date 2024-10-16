@@ -162,4 +162,17 @@ public class HomeController {
         attributes.addFlashAttribute("mensaje", new Mensaje("sucess", "Orden recibida"));
         return "redirect:/";
     }
+
+    @GetMapping("/detalles")
+    public String listarDetalles(Model model, HttpSession session){
+        Integer idCliente = (Integer) session.getAttribute("cliente");
+        Cliente cliente = clienteService.findById(idCliente);
+        //List<DetalleOrden> detalles = carrito.obtenerSesion(model); -->Pruebas
+        List<Orden> ordenes = ordenService.findByCustomer(cliente);
+
+
+        model.addAttribute("cliente", idCliente);
+        model.addAttribute("ordenes", ordenes);
+        return "/usuario/detalles";
+    }
 }
