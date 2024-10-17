@@ -24,6 +24,7 @@ create table cliente(
     telefono varchar(50),
     correo varchar(100) not null,
     contrasenia varchar(50) not null,
+    tipo varchar(25) not null,
     PRIMARY KEY (id_cli)
 )ENGINE=InnoDB CHARSET=latin1;
 
@@ -70,6 +71,8 @@ FOREIGN KEY (id_plat)
 REFERENCES platillo (id_plat);
 
 /*Inserción de registros*/
+INSERT INTO cliente (nombres, apellidos, telefono, correo, contrasenia, tipo) VALUES ('admin', 'admin', '0000-0000', 'admin@gmail.com', 'admin', 'ADMIN')
+
 INSERT INTO menu VALUES (1, 'Desayuno'), (2, 'Almuerzo'), (3, 'Cena');
 
 INSERT INTO platillo (nombre, precio, imagen, id_tipo) VALUES ('Pupusas',3.50,'/img/Plat001.jpg',1), ('Yuca frita',3.50,'/img/Plat002.jpg',1), ('Atol de elote',1.50,'/img/Plat003.jpg',1);

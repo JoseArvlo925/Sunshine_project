@@ -27,7 +27,10 @@ public class UsuarioController {
         cliente = clienteService.auth(cliente.getCorreo(), cliente.getContrasenia());
         if(cliente != null){
             session.setAttribute("cliente", cliente.getId());
-            return "redirect:/";
+            if(cliente.getTipo().equals("USER"))
+                return "redirect:/";
+            else
+                return "redirect:/administrador";
         } else {
             cliente = new Cliente();
             cliente.setCorreo(temp);

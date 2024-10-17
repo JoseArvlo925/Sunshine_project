@@ -76,6 +76,7 @@ public class HomeController {
             model.addAttribute("cliente", null);
 
         if(exist == 0) {
+            cliente.setTipo("USER");
             int res = clienteService.saveCliente(cliente);
             if (res != 0) {
                 model.addAttribute("mensaje", new Mensaje("success", "Registro existoso"));
@@ -159,7 +160,7 @@ public class HomeController {
         Orden last = ordenService.lastOrder();
         detalleService.saveDetalle(detalles, last);
         detalles.clear();
-        attributes.addFlashAttribute("mensaje", new Mensaje("sucess", "Orden recibida"));
+        attributes.addFlashAttribute("mensaje", new Mensaje("success", "Orden recibida"));
         return "redirect:/";
     }
 

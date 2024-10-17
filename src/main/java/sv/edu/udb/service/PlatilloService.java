@@ -19,4 +19,16 @@ public class PlatilloService {
     public Platillo findById(Integer id){
         return repository.findById(id);
     }
+
+    public void save(Platillo platillo){
+        repository.save(platillo);
+    }
+
+    public void delete(Platillo platillo){
+        repository.delete(platillo);
+    }
+
+    public void modificar(Platillo platillo){
+        repository.modificar(platillo);
+    }
 }

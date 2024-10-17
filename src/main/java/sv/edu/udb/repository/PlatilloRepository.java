@@ -8,8 +8,8 @@ import sv.edu.udb.repository.domain.Platillo;
 
 import java.util.List;
 
-@Transactional
 @Repository
+@Transactional
 public class PlatilloRepository {
     @PersistenceContext
     private EntityManager entityManager;
@@ -20,5 +20,27 @@ public class PlatilloRepository {
 
     public Platillo findById(int id){
         return (Platillo) entityManager.createNamedQuery("Platillo.findById").setParameter("id", id).getSingleResult();
+    }
+
+    public void save(Platillo platillo){
+        entityManager.persist(platillo);
+    }
+
+    public void delete(Platillo platillo){
+        entityManager.remove(platillo);
+    }
+
+    public void modificar(Platillo obj){
+        String query = "UPDATE Platillo p SET p.nombre = :nombre, p.precio = :precio, p.imagen = :imagen," +
+                " p.idTipo = :tipo WHERE p.id = :id";
+        entityManager.createQuery(query)
+                .setParameter("nombre", obj.getNombre())
+                .setParameter("precio", obj.getPrecio())
+                .setParameter("imagen", obj.getImagen())
+                .setParameter("tipo", obj.getIdTipo())
+                .setParameter("id", obj.getId())
+                .executeUpdate();
+        entityManager.flush();
+        entityManager.clear();
     }
 }

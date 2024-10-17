@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sunshine Restaurant</title>
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css}" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css}" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" th:href="@{/css/carousel.css}">
+</head>
+<body>
+<!--Navegación-->
+<div th:if="${cliente == null}" th:insert="~{usuario/navbar.html :: navbar}"></div>
+<div th:unless="${cliente == null}" th:insert="~{administrador/navbar.html :: navbar-admin}"></div>
+<!--Mensaje-->
+<div th:if="${mensaje != null}" th:insert="~{usuario/mensaje.html :: mensaje}"></div>
+
+<!--Contenido-->
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Nuevo Platillo</h2>
+    <form id="formProducto" enctype="multipart/form-data" th:action="@{/administrador/registrar}"
+          method="post">
+        <div class="form-group">
+            <label for="nombreProducto">Nombre del Producto</label>
+            <input name="nombre" type="text" class="form-control" id="nombreProducto" placeholder="Ingrese el nombre del platillo" required>
+        </div>
+        <div class="form-group">
+            <label for="precioProducto">Precio</label>
+            <input name="precio" type="number" class="form-control" id="precioProducto" placeholder="Ingrese el precio" step="0.01" required>
+        </div>
+        <div class="form-group">
+            <label for="imagenProducto">Imagen</label>
+            <input name="file" type="file" class="form-control-file" id="imagenProducto">
+        </div>
+        <div class="form-group">
+            <label for="tipoProducto">Tipo de Producto</label>
+            <select class="form-control" id="tipoProducto" required name="tipo">
+                <option th:each="opc : ${menu}" th:value="${opc.id}"
+                        th:text="${opc.tipo}"></option>
+            </select>
+        </div>
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-success">Registrar Platillo</button>
+        </div>
+    </form>
+</div>
+
+<!--JavaScript-->
+<script th:src="@{https://code.jquery.com/jquery-3.3.1.slim.min.js}"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script th:src="@{https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js}"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js}"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

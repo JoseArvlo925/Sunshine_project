@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sunshine Restaurant</title>
+    <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css}" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css}" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" th:href="@{/css/carousel.css}">
+</head>
+<body>
+<!--Navegación-->
+<div th:if="${cliente == null}" th:insert="~{usuario/navbar.html :: navbar}"></div>
+<div th:unless="${cliente == null}" th:insert="~{administrador/navbar.html :: navbar-admin}"></div>
+<!--Mensaje-->
+<div th:if="${mensaje != null}" th:insert="~{usuario/mensaje.html :: mensaje}"></div>
+
+<!--Contenido-->
+<div class="container-fluid mt-2">
+    <h5>Lista de productos</h5>
+    <hr/>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Precio</th>
+                                <th>Imagen</th>
+                                <th>Tipo</th>
+                                <th>Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <!--Inicio modificacion-->
+                            <tr th:each="platillo : ${platillos}">
+                                <td th:text="${platillo.nombre}"></td>
+                                <td th:text="${platillo.precio}"></td>
+                                <td>
+                                    <img th:src="@{/images/{imagen} (imagen = ${platillo.imagen})}" width="50" height="60"/>
+                                </td>
+                                <td th:text="${platillo.idTipo.tipo}"></td>
+                                <td>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" th:data-target="'#modalDetalle_' + ${platillo.id}">
+                                        Modificar
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" th:id="'modalDetalle_' + ${platillo.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" th:text="'Platillo ' + ${platillo.nombre}"></h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="container-fluid">
+                                                        <div class="table-responsive">
+                                                            <!-- Formulario con un id único -->
+                                                            <form th:id="'formProducto_' + ${platillo.id}" enctype="multipart/form-data"
+                                                                  th:action="@{/administrador/modificar/{id} (id = ${platillo.id})}" method="post">
+                                                                <div class="form-group">
+                                                                    <label for="nombreProducto">Nombre del Producto</label>
+                                                                    <input name="nombre" type="text" class="form-control" th:id="'nombreProducto_' + ${platillo.id}" placeholder="Ingrese el nombre del platillo"
+                                                                           required th:value="${platillo.nombre}">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="precioProducto">Precio</label>
+                                                                    <input name="precio" type="number" class="form-control" th:id="'precioProducto_' + ${platillo.id}" placeholder="Ingrese el precio"
+                                                                           step="0.01" required th:value="${platillo.precio}">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="imagenProducto">Imagen</label>
+                                                                    <input name="file" type="file" class="form-control-file" th:id="'imagenProducto_' + ${platillo.id}">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="tipoProducto">Tipo de Producto</label>
+                                                                    <select class="form-control" th:id="'tipoProducto_' + ${platillo.id}" required name="tipo">
+                                                                        <option th:each="opc : ${menu}" th:value="${opc.id}" th:text="${opc.tipo}"></option>
+                                                                    </select>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                    <!-- El botón submit también debe referenciar el formulario correcto -->
+                                                    <button type="submit" class="btn btn-primary" th:form="'formProducto_' + ${platillo.id}">Guardar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Fin modal -->
+
+                                    <!-- Botón eliminar -->
+                                    <button type="button" class="btn btn-danger">
+                                        <a th:href="@{/administrador/eliminar/{id} (id = ${platillo.id})}">Eliminar</a>
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <!--Fin modificacion-->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--JavaScript-->
+<script th:src="@{https://code.jquery.com/jquery-3.3.1.slim.min.js}"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script th:src="@{https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js}"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js}"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
