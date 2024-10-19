@@ -31,4 +31,16 @@ public class PlatilloService {
     public void modificar(Platillo platillo){
         repository.modificar(platillo);
     }
+
+    public List<Platillo> desayunos(){
+        return repository.desayunos();
+    }
+
+    public List<Platillo> almuerzos(){
+        return repository.almuerzos();
+    }
+
+    public List<Platillo> cenas(){
+        return repository.cenas();
+    }
 }

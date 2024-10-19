@@ -15,7 +15,10 @@ import java.math.BigDecimal;
 @Table(name = "platillo")
 @NamedQueries({
         @NamedQuery(name = "Platillo.findAll", query = "SELECT p FROM Platillo p"),
-        @NamedQuery(name = "Platillo.findById", query = "SELECT p FROM Platillo p WHERE p.id = :id")
+        @NamedQuery(name = "Platillo.findById", query = "SELECT p FROM Platillo p WHERE p.id = :id"),
+        @NamedQuery(name = "Platillo.desayunos", query = "SELECT p from Platillo p WHERE p.idTipo.id = 1"),
+        @NamedQuery(name = "Platillo.almuerzos", query = "SELECT p from Platillo p WHERE p.idTipo.id = 2"),
+        @NamedQuery(name = "Platillo.cenas", query = "SELECT p from Platillo p WHERE p.idTipo.id = 3")
 })
 public class Platillo {
     @Id

@@ -34,7 +34,14 @@ public class HomeController {
 
     @GetMapping("")
     public String listarPlatillos(Model model, HttpSession session){
-        model.addAttribute("platillos", service.findAll());
+        //model.addAttribute("platillos", service.findAll());
+
+        /**
+         * Try for list only certain foods*/
+        model.addAttribute("desayunos", service.desayunos());
+        model.addAttribute("almuerzos", service.almuerzos());
+        model.addAttribute("cenas", service.cenas());
+
         model.addAttribute("cliente", session.getAttribute("cliente"));
         return "usuario/index";
     }

@@ -43,4 +43,16 @@ public class PlatilloRepository {
         entityManager.flush();
         entityManager.clear();
     }
+
+    public List<Platillo> desayunos(){
+        return entityManager.createNamedQuery("Platillo.desayunos", Platillo.class).getResultList();
+    }
+
+    public List<Platillo> almuerzos(){
+        return entityManager.createNamedQuery("Platillo.almuerzos", Platillo.class).getResultList();
+    }
+
+    public List<Platillo> cenas(){
+        return entityManager.createNamedQuery("Platillo.cenas", Platillo.class).getResultList();
+    }
 }

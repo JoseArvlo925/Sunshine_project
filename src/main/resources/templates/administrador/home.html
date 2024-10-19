@@ -24,8 +24,8 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-bordered">
-                            <thead>
+                        <table class="table table-bordered table-dark">
+                            <thead style="background-color: #689F38">
                             <tr>
                                 <th>Nombre</th>
                                 <th>Precio</th>
@@ -39,7 +39,7 @@
                             <tr th:each="platillo : ${platillos}">
                                 <td th:text="${platillo.nombre}"></td>
                                 <td th:text="${platillo.precio}"></td>
-                                <td>
+                                <td th:align="center">
                                     <img th:src="@{/images/{imagen} (imagen = ${platillo.imagen})}" width="50" height="60"/>
                                 </td>
                                 <td th:text="${platillo.idTipo.tipo}"></td>
